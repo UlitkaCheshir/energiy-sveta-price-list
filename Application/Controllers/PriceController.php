@@ -54,12 +54,6 @@ class PriceController extends BaseController
             <?php
 
 //            $textInFile =
-//            description;
-//            tag;
-//            meta_title;
-//            meta_description;
-//            meta_keyword;
-//            additional_images;
 //            product_attribute;
 //            product_category;
 //            product_special';
@@ -84,7 +78,50 @@ class PriceController extends BaseController
             $textInFile .= "1;"; //включен или отключен
             $textInFile .= "{$singleproduct[3]};"; //производитель
             $textInFile .= "{$singleproduct[2]};"; //название
-            $textInFile .= "{$singleproduct[2]};"; //описание
+
+            //================ФОРМИРОВАНИЕ ОПИСАНИЯ======================//
+            $description = "<p>Расширенная гарантия на товар составляет ";
+            $description .= "{$singleproduct[51]}</p>";
+            $description .= "<p>Поставщик рекомендует использовать лампы накаливания с цоколем {$singleproduct[27]} ";
+            $description .= "для освещения площади {$singleproduct[26]}м2. ";
+            $description .= "{$singleproduct[2]} в стиле {$singleproduct[44]} ";
+
+            mb_internal_encoding("UTF-8");
+            $intererIndex = stripos("{$singleproduct[46]}", ' ');
+            $interer = substr("{$singleproduct[46]}", $intererIndex);
+            $description .= "используется в интерьере{$interer} ";
+
+
+
+            if(!$singleproduct[42]==""){
+                $place_setup = mb_strtolower($singleproduct[42]);
+                $description .= "с установкой {$place_setup}";
+            }
+
+            $description .= ".";
+            //================КОНЕЦ ФОРМИРОВАНИЕ ОПИСАНИЯ======================//
+            $textInFile .= "{$description};"; //описание
+
+            $textInFile .= "{$singleproduct[12]},{$singleproduct[14]};"; //тег
+            $textInFile .= "{$singleproduct[2]};"; //meta tag
+            $textInFile .= "{$singleproduct[2]} купить в Донецке ДНР;"; //meta description
+            $textInFile .= "{$singleproduct[2]} купить в Донецке, Макеевке, Горловке, Торезе, Снежном, Шахтёрске, Енакиево, Ясиноватой, Харцизске, Амросиевке, Новоазовске, Москве, Ростове, Шахтах, Каменск-Шахтинске, Новошахтинске;"; //meta keyword
+
+            //===========ДОПОЛНИТЕЛЬНЫЕ ИЗОБРАЖЕНИЯ=====================
+            $additionalImg = '';
+
+            if(!$singleproduct[8]==""){
+                $additionalImg.= "{$singleproduct[8]}";
+            }
+            if(!$singleproduct[9]==""){
+                $additionalImg.= "|{$singleproduct[9]}";
+            }
+            if(!$singleproduct[10]==""){
+                $additionalImg.= "|{$singleproduct[10]}";
+            }
+
+            $textInFile .= "{$additionalImg};"; //дополнительные изображения
+
 
 //            date_default_timezone_set('Europe/Minsk');
 //            $date = date('d-m-Y H-i-s ', time());
