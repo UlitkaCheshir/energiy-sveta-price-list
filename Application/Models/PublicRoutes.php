@@ -3,7 +3,8 @@
 
 return array(
     'get' => [
-        '/price' => 'PriceController@Price',
+        '/price-vokrug-lamp' => 'PriceController@PriceVokruglamp',
+        '/price-decomo' => 'PriceController@PriceDecomo',
 
     ],
     'post' => [
